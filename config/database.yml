@@ -1,0 +1,17 @@
+development:
+  adapter: postgresql
+  encoding: unicode
+  database: gmc_development
+  pool: 20
+  username: dev
+  host: localhost
+  password: 123456
+
+test: &test
+  adapter: postgresql
+  encoding: unicode
+  database: gmc_test
+  host: localhost
+  pool: 8
+  username: dev
+  password: 123456
