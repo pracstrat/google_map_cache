@@ -1,3 +1,5 @@
+require 'net/http'
+
 class Distance < ActiveRecord::Base
   cattr_accessor :status
 
