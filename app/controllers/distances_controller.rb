@@ -3,7 +3,13 @@ class DistancesController < ApplicationController
     distance = Distance.where(origin: params[:from], destination: params[:to]).first
     
     unless distance.present?
-      distance = Distance.create!(origin: params[:from], destination: params[:to], distance: Distance.distance(params[:from], params[:to]))
+      d = Distance.distance(params[:from], params[:to])
+      if d == 0
+        render status: :not_found
+        return
+      end
+        
+      distance = Distance.create!(origin: params[:from], destination: params[:to], distance: d)
     end
     
     respond_to do |format|
