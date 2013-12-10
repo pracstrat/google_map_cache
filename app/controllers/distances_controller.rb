@@ -5,7 +5,7 @@ class DistancesController < ApplicationController
     unless distance.present?
       d = Distance.distance(params[:from], params[:to])
       if d == 0
-        render status: :not_found
+        render nothing: true, status: :not_found
         return
       end
         
