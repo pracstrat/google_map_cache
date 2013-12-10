@@ -16,7 +16,7 @@ class Distance < ActiveRecord::Base
     ret = 0
     while(time <= TIME*3)
       begin
-        Net::HTTP.start('maps.googleapis.com', 80, PROXY.host, PROXY.port) do |http|
+        Net::HTTP.start('maps.googleapis.com', 80, PROXY.host, PROXY.port, PROXY.user, PROXY.password) do |http|
           http.read_timeout = time
           url = "/maps/api/directions/json?origin=%s&destination=%s&region=us&sensor=false"%from_to
           Rails.logger.info("-->Request URL: http://maps.googleapis.com" + url)
