@@ -10,9 +10,11 @@ class DistancesController < ApplicationController
         return
       when -1
         render json: -1
+        return
       else
         distance = Distance.create!(origin: params[:from], destination: params[:to], distance: d)
         render json: distance.distance
+        return
       end
     end
   end
