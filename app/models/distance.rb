@@ -13,7 +13,7 @@ class Distance < ActiveRecord::Base
     to.gsub!(/\s+/,' ')
     from_to = [CGI::escape(from),CGI::escape(to)]
     time = 0.5
-    ret = 0
+    ret = { }
     while(time <= TIME*3)
       begin
         Net::HTTP.start('maps.googleapis.com') do |http| #, 80, PROXY.host, PROXY.port, PROXY.user, PROXY.password) do |http|
@@ -21,17 +21,16 @@ class Distance < ActiveRecord::Base
           url = "/maps/api/directions/json?origin=%s&destination=%s&region=us&sensor=false"%from_to
           Rails.logger.info("-->Request URL: http://maps.googleapis.com" + url)
           response = http.get(url)
-          json = JSON.parse(response.body)
-          Distance.status = json["status"]
-          if json["status"]=="OK"
-            ret = json["routes"][0]["legs"][0]["distance"]["value"].to_i
-            Rails.logger.info(">>>>> Response Distance: #{ret}" )
-            return ret
-          else
+          ret = JSON.parse(response.body)
+          case ret["status"]
+          when "OK"
+            return { "status" => "OK", "distance" => ret["routes"][0]["legs"][0]["distance"]["value"].to_i }
+          when "OVER_QUERY_LIMIT"
             Rails.logger.info("---<<" + json.to_s)
-            return -1 if json["status"] == "NOT_FOUND"
+            sleep(time * 2)
+          else
+            return ret
           end
-          sleep(time*2)
         end
       rescue Exception=>ex
         Rails.logger.info(ex.message)
