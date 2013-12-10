@@ -16,7 +16,7 @@ class Distance < ActiveRecord::Base
     ret = { }
     while(time <= TIME*3)
       begin
-        Net::HTTP.start('maps.googleapis.com') do |http| #, 80, PROXY.host, PROXY.port, PROXY.user, PROXY.password) do |http|
+        Net::HTTP.start('maps.googleapis.com', 80, PROXY.host, PROXY.port, PROXY.user, PROXY.password) do |http|
           http.read_timeout = time
           url = "/maps/api/directions/json?origin=%s&destination=%s&region=us&sensor=false"%from_to
           Rails.logger.info("-->Request URL: http://maps.googleapis.com" + url)
@@ -26,7 +26,7 @@ class Distance < ActiveRecord::Base
           when "OK"
             return { "status" => "OK", "distance" => ret["routes"][0]["legs"][0]["distance"]["value"].to_i }
           when "OVER_QUERY_LIMIT"
-            Rails.logger.info("---<<" + json.to_s)
+            Rails.logger.info("---<<" + ret.to_s)
             sleep(time * 2)
           else
             return ret
