@@ -4,16 +4,16 @@ class DistancesController < ApplicationController
     
     unless distance.present?
       d = Distance.distance(params[:from], params[:to])
-      if d == 0
+      case d
+      when 0
         render nothing: true, status: :not_found
         return
+      when -1
+        render json: -1
+      else
+        distance = Distance.create!(origin: params[:from], destination: params[:to], distance: d)
+        render json: distance.distance
       end
-        
-      distance = Distance.create!(origin: params[:from], destination: params[:to], distance: d)
-    end
-    
-    respond_to do |format|
-      format.json { render json: distance.distance }
     end
   end
 end
