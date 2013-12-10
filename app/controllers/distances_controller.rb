@@ -4,7 +4,7 @@ class DistancesController < ApplicationController
     json = nil
     
     if distance.present?
-      json = { "status" => "OK", "distance" => distance }
+      json = { "status" => "OK", "distance" => distance.distance }
     else
       json = Distance.distance(params[:from], params[:to])
       Distance.create!(origin: params[:from], destination: params[:to], distance: json["distance"]) if json["status"] == "OK"
