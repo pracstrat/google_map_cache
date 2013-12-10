@@ -4,6 +4,8 @@ class Distance < ActiveRecord::Base
   cattr_accessor :status
 
   TIME = 1
+  
+  ENV['http_proxy'] = ENV['QUOTAGUARD_URL']
 
   def self.distance(from, to)
     return rand(10**5) if Rails.env.test?
