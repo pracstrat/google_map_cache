@@ -29,9 +29,13 @@ gem 'uglifier', '>= 1.3.0'
 
 # Build JSON APIs with ease. Read more: https://github.com/rails/jbuilder
 gem 'jbuilder', '~> 1.2'
-gem 'capistrano'
-gem 'capistrano-rvm'
-gem 'capistrano-bundler'
+
+group :development do
+  gem 'capistrano'
+  gem 'capistrano-bundler', '1.0.0'
+  gem 'sshkit', '1.0.0' # because of https://github.com/leehambley/sshkit/issues/39
+  gem 'capistrano-rvm', '0.0.3'
+end
 
 # group :production do
 #   gem 'unicorn'

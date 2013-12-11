@@ -8,7 +8,7 @@ set :ssh_options, {
 }
 set :rvm_ruby_version, "ruby-2.0.0-p353"
 
-# set :deploy_to, '/var/www/my_app'
+set :deploy_to, '/var/www/google_map_cache'
 # set :scm, :git
 
 # set :format, :pretty
