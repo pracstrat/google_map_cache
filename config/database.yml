@@ -15,3 +15,12 @@ test: &test
   pool: 8
   username: dev
   password: 123456
+
+production:
+  adapter: postgresql
+  encoding: unicode
+  database: gmc_production
+  pool: 20
+  username: dev
+  host: localhost
+  password: 123456
