@@ -3,6 +3,11 @@ set :repo_url, 'git@github.com:pracstrat/google_map_cache.git'
 
 ask :branch, proc { `git rev-parse --abbrev-ref HEAD`.chomp }
 
+set :ssh_options, {
+  port: 30000,
+}
+set :rvm_ruby_version, "ruby-2.0.0-p353"
+
 # set :deploy_to, '/var/www/my_app'
 # set :scm, :git
 
