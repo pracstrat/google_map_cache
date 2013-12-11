@@ -32,9 +32,9 @@ gem 'jbuilder', '~> 1.2'
 
 group :development do
   gem 'capistrano'
-  gem 'capistrano-bundler', '1.0.0'
-  gem 'sshkit', '1.0.0' # because of https://github.com/leehambley/sshkit/issues/39
-  gem 'capistrano-rvm', '0.0.3'
+  gem 'capistrano-bundler'#, '1.0.0'
+  gem 'sshkit'#, '1.0.0' # because of https://github.com/leehambley/sshkit/issues/39
+  gem 'capistrano-rvm'#, '0.0.3'
 end
 
 # group :production do
