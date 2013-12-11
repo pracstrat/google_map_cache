@@ -7,6 +7,7 @@ set :ssh_options, {
   port: 30000,
 }
 set :rvm_ruby_version, "ruby-2.0.0-p353"
+set :rvm_type, :user
 
 set :deploy_to, "/u/apps/#{fetch(:application)}"
 # set :scm, :git

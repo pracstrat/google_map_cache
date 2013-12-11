@@ -5,7 +5,7 @@ class Distance < ActiveRecord::Base
 
   TIME = 1
   
-  PROXY = URI.parse(ENV['QUOTAGUARD_URL'])
+  # PROXY = URI.parse(ENV['QUOTAGUARD_URL'])
 
   def self.distance(from, to)
     return rand(10**5) if Rails.env.test?
@@ -16,7 +16,7 @@ class Distance < ActiveRecord::Base
     ret = { }
     while(time <= TIME*3)
       begin
-        Net::HTTP.start('maps.googleapis.com', 80, PROXY.host, PROXY.port, PROXY.user, PROXY.password) do |http|
+        Net::HTTP.start('maps.googleapis.com', 80) do |http|#, PROXY.host, PROXY.port, PROXY.user, PROXY.password) do |http|
           http.read_timeout = time
           url = "/maps/api/directions/json?origin=%s&destination=%s&region=us&sensor=false"%from_to
           Rails.logger.info("-->Request URL: http://maps.googleapis.com" + url)
